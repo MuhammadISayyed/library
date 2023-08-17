@@ -8,6 +8,40 @@ const winFriends = new Book(
 
 const myLibrary = [theHobbit, winFriends];
 
+// Dealing with the dialog
+const bookDialog = document.getElementById('book-dialog');
+const openBtn = document.getElementById('open-btn');
+const submitBtn = document.getElementById('submit-btn');
+const closeBtn = document.getElementById('close-btn');
+const addTitle = document.getElementById('book-title');
+const addAuthor = document.getElementById('book-author');
+const addPages = document.getElementById('book-pages');
+const readIt = document.getElementById('read-it');
+
+openBtn.addEventListener('click', () => {
+  bookDialog.showModal();
+});
+
+closeBtn.addEventListener('click', () => {
+  bookDialog.close();
+});
+
+function addBookToLibrary() {
+  // let visitor add his own books.
+  submitBtn.addEventListener('click', () => {
+    console.log('there we go adding a new book...');
+    const newBook = new Book(
+      addTitle.value,
+      addAuthor.value,
+      addPages.value,
+      readIt.value
+    );
+    myLibrary.push(newBook);
+    displayBooks();
+    console.log(myLibrary);
+  });
+}
+
 // Operator constructor that helps us create new book items and manipulate them.
 function Book(title, author, pages, read) {
   this.title = title;
@@ -52,8 +86,5 @@ function displayBooks() {
   });
 }
 
-function addBookToLibrary() {
-  // let visitor add his own books.
-}
-
 displayBooks();
+addBookToLibrary();

@@ -4,9 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
-    <title>Minimal</title>
+    <title>Library</title>
   </head>
   <body>
+    <button id="open-btn">Add a book</button>
+    <dialog id="book-dialog">
+      <form id="dialog-form" method="dialog">
+        <label for="book-title"
+          >Title<input id="book-title" type="text"
+        /></label>
+        <label for="book-author"
+          >Author<input id="book-author" type="text"
+        /></label>
+        <label for="book-pages"
+          >Number of pages<input id="book-pages" type="text"
+        /></label>
+        <label for="read-it"
+          >Read it?<input id="read-it" type="checkbox"
+        /></label>
+        <button id="close-btn">Close</button>
+        <button id="submit-btn" type="submit">Submit</button>
+      </form>
+    </dialog>
     <script src="./script.js"></script>
   </body>
 </html>
