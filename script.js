@@ -1,12 +1,14 @@
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
-const winFriends = new Book(
-  'How to Win Friends and Influence People',
-  'Dale Carnegie',
-  276,
-  'true'
-);
+// TODO
 
-const myLibrary = [theHobbit, winFriends];
+// Operator constructor that helps us create new book items and manipulate them.
+function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = readIt.checked ? true : false;
+}
+
+const myLibrary = [];
 
 // Dealing with the dialog
 const bookDialog = document.getElementById('book-dialog');
@@ -26,65 +28,109 @@ closeBtn.addEventListener('click', () => {
   bookDialog.close();
 });
 
-function addBookToLibrary() {
-  // let visitor add his own books.
-  submitBtn.addEventListener('click', () => {
-    console.log('there we go adding a new book...');
-    const newBook = new Book(
-      addTitle.value,
-      addAuthor.value,
-      addPages.value,
-      readIt.value
-    );
-    myLibrary.push(newBook);
-    displayBooks();
-    console.log(myLibrary);
+submitBtn.addEventListener('click', () => {
+  console.log('there we go adding a new book...');
+  const newBook = new Book(
+    addTitle.value,
+    addAuthor.value,
+    addPages.value,
+    readIt.checked
+  );
+  myLibrary.push(newBook);
+  console.log(myLibrary);
+  displayBooks(myLibrary[myLibrary.length - 1]);
+});
+
+// Display added books
+const displayBooks = function (book) {
+  // Div for the book card
+  const bookDiv = document.createElement('div');
+  bookDiv.classList.add('book-card');
+
+  // Book title
+  const bookTitle = document.createElement('h2');
+  bookTitle.innerText = book.title;
+  bookTitle.classList.add('book-title');
+
+  // Book author
+  const bookAuthor = document.createElement('p');
+  bookAuthor.innerText = book.author;
+  bookAuthor.classList.add('book-author');
+
+  // Number of pages
+  const bookPages = document.createElement('p');
+  bookPages.innerText = book.pages;
+  bookPages.classList.add('book-pages');
+
+  // Read?
+  const didRead = document.createElement('p');
+  book.read === true
+    ? (didRead.innerText = 'Already read it.')
+    : (didRead.innerText = 'Not yet.');
+
+  book.read ? didRead.classList.add('read') : didRead.classList.add('not-read');
+
+  const removeBtn = document.createElement('button');
+  removeBtn.innerText = 'Remove book';
+  removeBtn.classList.add('remove-btn');
+  removeBtn.setAttribute('id', 'remove-btn');
+
+  removeBtn.addEventListener('click', () => {
+    bookDiv.remove();
   });
-}
 
-// Operator constructor that helps us create new book items and manipulate them.
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read === true ? true : read === false;
-}
+  bookDiv.append(bookTitle, bookAuthor, bookPages, didRead, removeBtn);
+  document.body.appendChild(bookDiv);
+};
 
-function displayBooks() {
-  myLibrary.forEach((book) => {
-    // Div for the book card
-    const bookDiv = document.createElement('div');
-    bookDiv.classList.add('book-card');
+// // Display added books
+// const displayBooks = function (library) {
+//   library.forEach((book) => {
+//     // Div for the book card
+//     const bookDiv = document.createElement('div');
+//     bookDiv.classList.add('book-card');
 
-    // Book title
-    const bookTitle = document.createElement('h2');
-    bookTitle.innerText = book.title;
-    bookTitle.classList.add('book-title');
+//     // Book title
+//     const bookTitle = document.createElement('h2');
+//     bookTitle.innerText = book.title;
+//     bookTitle.classList.add('book-title');
 
-    // Book author
-    const bookAuthor = document.createElement('p');
-    bookAuthor.innerText = book.author;
-    bookAuthor.classList.add('book-author');
+//     // Book author
+//     const bookAuthor = document.createElement('p');
+//     bookAuthor.innerText = book.author;
+//     bookAuthor.classList.add('book-author');
 
-    // Number of pages
-    const bookPages = document.createElement('p');
-    bookPages.innerText = book.pages;
-    bookPages.classList.add('book-pages');
+//     // Number of pages
+//     const bookPages = document.createElement('p');
+//     bookPages.innerText = book.pages;
+//     bookPages.classList.add('book-pages');
 
-    // Read?
-    const didRead = document.createElement('p');
-    book.read
-      ? (didRead.innerText = 'Already read it.')
-      : (didRead.innerText = 'Not yet.');
+//     // Read?
+//     const didRead = document.createElement('p');
+//     book.read
+//       ? (didRead.innerText = 'Already read it.')
+//       : (didRead.innerText = 'Not yet.');
 
-    book.read
-      ? didRead.classList.add('read')
-      : didRead.classList.add('not-read');
+//     book.read
+//       ? didRead.classList.add('read')
+//       : didRead.classList.add('not-read');
 
-    bookDiv.append(bookTitle, bookAuthor, bookPages, didRead);
-    document.body.appendChild(bookDiv);
-  });
-}
+//     bookDiv.append(bookTitle, bookAuthor, bookPages, didRead);
+//     document.body.appendChild(bookDiv);
 
-displayBooks();
-addBookToLibrary();
+//     const removeBtn = document.createElement('button');
+//     removeBtn.innerText = 'Remove book';
+//     // removeBtn.classList.add('remove-btn');
+//     removeBtn.setAttribute('id', 'remove-btn');
+
+//     removeBtn.addEventListener('click', () => {
+//       bookDiv.remove();
+//       let index = myLibrary.indexOf(book);
+//       if (index > -1) {
+//         myLibrary.splice(index, 1);
+//       }
+//     });
+//   });
+// };
+
+// addBookToLibrary();
