@@ -63,12 +63,21 @@ const displayBooks = function (book) {
   bookPages.classList.add('book-pages');
 
   // Read?
-  const didRead = document.createElement('p');
+  const didRead = document.createElement('button');
+  didRead.setAttribute('id', 'read-btn');
   book.read === true
     ? (didRead.innerText = 'Already read it.')
     : (didRead.innerText = 'Not yet.');
-
   book.read ? didRead.classList.add('read') : didRead.classList.add('not-read');
+  didRead.addEventListener('click', () => {
+    if (book.read === true) {
+      didRead.innerText = 'Not yet.';
+      book.read = false;
+    } else {
+      didRead.innerText = 'Already read it.';
+      book.read = true;
+    }
+  });
 
   const removeBtn = document.createElement('button');
   removeBtn.innerText = 'Remove book';
